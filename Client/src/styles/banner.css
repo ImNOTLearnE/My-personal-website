@@ -1,0 +1,52 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+@media (min-width: 768px) {
+  .banner {
+    flex-direction: row;
+  }
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 32vh;
+  left: 19.3vw;
+  height: 49.5vh;
+  width: 61.5vw;
+  border-top: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  transition: 0.5s ease-in-out;
+  transform-origin: center;
+  transform: scaleX(0);
+  z-index: -1;
+}
+.banner::after {
+  content: "";
+  position: absolute;
+  top: 32vh;
+  left: 19.3vw;
+  height: 49.5vh;
+  width: 61.5vw;
+  border-right: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  transition: 0.5s ease-in-out;
+  transform-origin: top;
+  transform: scaleY(0);
+  z-index: -1;
+}
+.banner:hover::after {
+  transition: 2s ease-in-out;
+  transform-origin: top;
+  transform: scaleY(1);
+}
+.banner:hover::before {
+  transition: 2s ease-in-out;
+  transform-origin: center;
+  transform: scaleX(1);
+}

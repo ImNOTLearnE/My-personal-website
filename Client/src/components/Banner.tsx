@@ -6,7 +6,6 @@ import Container from "@mui/material/Container";
 
 // CSS
 import "../styles/Banner.css";
-import type { Margin } from "@mui/icons-material";
 
 const Banner = () => {
   return (

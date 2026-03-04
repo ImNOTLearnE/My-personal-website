@@ -1,7 +1,7 @@
 // PAGE IMPORTS
 import Home from "./page/Home";
 
-import Background from "./Background";
+// import Background from "./Background";
 import { createTheme, ThemeProvider } from "@mui/material";
 const theme = createTheme({
   typography: {

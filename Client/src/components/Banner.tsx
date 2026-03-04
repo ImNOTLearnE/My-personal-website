@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 // CSS
-import "../styles/Banner.css";
+import "../styles/banner.css";
 
 const Banner = () => {
   return (

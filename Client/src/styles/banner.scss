@@ -1,9 +1,22 @@
+$breakpoints: (
+  1103px: 60vh,
+  968px: 65vh,
+  949px: 70vh,
+  913px: 75vh,
+  899px: 86vh,
+  817px: 90vh,
+  767px: 75vh,
+  682px: 80vh,
+  565px: 90vh,
+);
+
 .banner {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
   transition: 0.5s;
+  --banner-height: 49.5vh;
 }
 
 @media (min-width: 768px) {
@@ -15,9 +28,9 @@
 .banner::before {
   content: "";
   position: absolute;
-  top: 32vh;
+  top: 31vh;
   left: 19.3vw;
-  height: 49.5vh;
+  height: var(--banner-height);
   width: 61.5vw;
   border-top: 3px solid #ffffff;
   border-bottom: 3px solid #ffffff;
@@ -29,9 +42,10 @@
 .banner::after {
   content: "";
   position: absolute;
-  top: 32vh;
+  top: 31vh;
   left: 19.3vw;
-  height: 49.5vh;
+  height: var(--banner-height);
+
   width: 61.5vw;
   border-right: 3px solid #ffffff;
   border-left: 3px solid #ffffff;
@@ -49,4 +63,44 @@
   transition: 2s ease-in-out;
   transform-origin: center;
   transform: scaleX(1);
+}
+
+// @media (max-width: 1103px) {
+//   .banner {
+//     --banner-height: 60vh;
+//   }
+// }
+
+// @media (max-width: 968px) {
+//   .banner {
+//     --banner-height: 65vh;
+//   }
+// }
+
+// @media (max-width: 765px) {
+//   .banner {
+//     --banner-height: 75vh;
+//   }
+// }
+
+// @media (max-width: 682px) {
+//   .banner {
+//     --banner-height: 80vh;
+//   }
+// }
+
+// @media (max-width: 565px) {
+//   .banner {
+//     --banner-height: 90vh;
+//   }
+// }
+.banner {
+  @each $bp, $h in $breakpoints {
+    @media (max-width: $bp) {
+      &::before,
+      &::after {
+        height: $h;
+      }
+    }
+  }
 }

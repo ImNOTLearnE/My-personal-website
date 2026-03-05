@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 // CSS
-import "../styles/banner.css";
+import "../styles/banner.scss";
 
 const Banner = () => {
   return (
@@ -15,45 +15,12 @@ const Banner = () => {
           maxWidth="lg"
           sx={{
             width: "60vw",
-            height: { xs: "160vh", md: "50vh" },
+            height: { xs: "auto", md: "auto" },
             marginTop: "25vh ",
           }}
         >
           {/* CONTENT */}
-          <Box
-            className="banner"
-            // sx={{
-            //   bgcolor: "#40404034",
-            //   border: "2px solid #404040a4",
-            //   display: "flex",
-            //   flexDirection: { xs: "column", md: "row" },
-            //   height: "100%",
-            //   overflow: "hidden",
-            //   transition: "0.5s ",
-            //   "&::before": {
-            //     content: '""',
-            //     position: "absolute",
-            //     top: "32vh",
-            //     left: "19.3vw",
-            //     height: "497px",
-            //     width: "1148px",
-            //     borderTop: "3px solid #ffffff",
-            //     borderBottom: "3px solid #ffffff",
-            //     transition: "0.5s ease-in-out",
-            //     transformOrigin: "center",
-            //     transform: "ScaleX(1)",
-            //     zIndex: -1,
-            //   },
-            //   "&:hover::before": {
-            //     borderRight: "3px solid #ffffff",
-            //     borderLeft: "3px solid #ffffff",
-            //     transition: "2s ease-in-out",
-            //     animationDelay: "12s",
-            //     transformOrigin: "center",
-            //     transform: "scaleX(1)",
-            //   },
-            // }}
-          >
+          <Box className="banner">
             {/* ABOUT ME PARAGRAPH */}
             <Box
               sx={{
@@ -74,7 +41,7 @@ const Banner = () => {
                 Full Stack Dev
               </Typography>
 
-              <Typography fontSize={"1vw"}>
+              <Typography fontSize={"1rem"}>
                 My name is Ahmad, and I’m a full‑stack developer passionate
                 about crafting digital products that are both powerful and
                 intuitive. I specialize in React on the front end and

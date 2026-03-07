@@ -114,7 +114,6 @@ const Header = () => {
                   open={Boolean(anchorElNav)}
                   onClose={handleCloseNavMenu}
                   sx={{
-                    backgroundColor: "#00c878",
                     display: { xs: "block", md: "none" },
                   }}
                 >

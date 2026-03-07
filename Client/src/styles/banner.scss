@@ -3,25 +3,44 @@ $breakpoints: (
   968px: 65vh,
   949px: 70vh,
   913px: 75vh,
-  899px: 86vh,
-  817px: 90vh,
-  767px: 75vh,
-  682px: 80vh,
-  565px: 90vh,
+  899px: 60vh,
+  817px: 60vh,
+  767px: 70vh,
+  682px: 70vh,
+  565px: 80vh,
+);
+$breakpointsWidth: (
+  1103px: 60vw,
+  968px: 65vw,
+  949px: 70vw,
+  913px: 75vw,
+  899px: 92vw,
+  817px: 92vw,
+  767px: 90vw,
+  682px: 90vw,
+  565px: 90vw,
+);
+$breakpointsPosition: (
+  899px: 5vw,
+  817px: 5vw,
+  767px: 5vw,
+  682px: 5vw,
+  565px: 5vw,
 );
 
 .banner {
   display: flex;
-  flex-direction: column;
   height: 100%;
+
   overflow: hidden;
   transition: 0.5s;
   --banner-height: 49.5vh;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .banner {
-    flex-direction: row;
+    width: 100%;
+    flex-direction: column;
   }
 }
 
@@ -65,41 +84,28 @@ $breakpoints: (
   transform: scaleX(1);
 }
 
-// @media (max-width: 1103px) {
-//   .banner {
-//     --banner-height: 60vh;
-//   }
-// }
-
-// @media (max-width: 968px) {
-//   .banner {
-//     --banner-height: 65vh;
-//   }
-// }
-
-// @media (max-width: 765px) {
-//   .banner {
-//     --banner-height: 75vh;
-//   }
-// }
-
-// @media (max-width: 682px) {
-//   .banner {
-//     --banner-height: 80vh;
-//   }
-// }
-
-// @media (max-width: 565px) {
-//   .banner {
-//     --banner-height: 90vh;
-//   }
-// }
 .banner {
   @each $bp, $h in $breakpoints {
     @media (max-width: $bp) {
       &::before,
       &::after {
         height: $h;
+      }
+    }
+  }
+  @each $bp, $w in $breakpointsWidth {
+    @media (max-width: $bp) {
+      &::before,
+      &::after {
+        width: $w;
+      }
+    }
+  }
+  @each $bp, $p in $breakpointsPosition {
+    @media (max-width: $bp) {
+      &::before,
+      &::after {
+        left: $p;
       }
     }
   }

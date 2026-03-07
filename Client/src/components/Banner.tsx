@@ -14,7 +14,7 @@ const Banner = () => {
         <Container
           maxWidth="lg"
           sx={{
-            width: "60vw",
+            width: { xs: "100%", md: "60%" },
             height: { xs: "auto", md: "auto" },
             marginTop: "25vh ",
           }}

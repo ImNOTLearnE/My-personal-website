@@ -7,13 +7,12 @@ const test = () => {
   }
   return testArr;
 };
-console.log(test());
 const Background = () => {
   return (
     <div className="Container">
       <div className="Bubbles">
-        {test().map((i) => (
-          <span style={{ "--i": i } as any} key={i}></span>
+        {test().map((i, index) => (
+          <span style={{ "--i": i } as any} key={`${i}-${index}`}></span>
         ))}
 
         {/* <span style={{ "--i": 11 } as any}></span>

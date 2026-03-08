@@ -94,7 +94,7 @@ const Header = () => {
                 <Menu
                   PaperProps={{
                     sx: {
-                      backgroundColor: "#222",
+                      backgroundColor: "#22222200",
                       color: "#fff",
                       borderRadius: "12px",
                       padding: "10px",
@@ -119,13 +119,42 @@ const Header = () => {
                 >
                   {pages.map((page) => (
                     <MenuItem
-                      // sx={{ background: "#415f53" }}
+                      sx={{
+                        transition: "0.5s",
+                        ":hover": {
+                          color: "#000000",
+                          transform: "Scale(1.1)",
+
+                          transition: "0.5s ease-in-out",
+                        },
+                      }}
                       key={page}
                       onClick={handleCloseNavMenu}
                     >
                       <Typography
                         sx={{
+                          margin: "5px",
+
                           textAlign: "center",
+                          "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            height: "100%",
+                            width: "100%",
+                            background: "#ffffff",
+                            borderRadius: "10px",
+                            transition: "0.5s",
+                            transformOrigin: "right",
+                            transform: "ScaleX(0)",
+                            zIndex: -1,
+                          },
+                          "&:hover::before": {
+                            transition: "transform 0.5s",
+                            transformOrigin: "left",
+                            transform: "scaleX(1)",
+                          },
                         }}
                       >
                         {page}
@@ -156,8 +185,7 @@ const Header = () => {
               >
                 LOGO
               </Typography>
-              {/*  */}
-
+              {/* CONTENT NAVBAR */}
               <Box
                 sx={{
                   flexGrow: 1,
@@ -213,7 +241,9 @@ const Header = () => {
                   </Button>
                 ))}
               </Box>
-              {/*  */}
+              {/* CONTENT NAVBAR */}
+
+              {/* USER MENU */}
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -285,7 +315,7 @@ const Header = () => {
                   ))}
                 </Menu>
               </Box>
-              {/*  */}
+              {/* USER MENU */}
             </Toolbar>
           </Container>
         </AppBar>

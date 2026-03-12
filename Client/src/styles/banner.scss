@@ -28,10 +28,29 @@ $breakpointsPosition: (
   565px: 5vw,
 );
 
+@mixin glassEffect {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+@mixin glassEffectBefore {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  opacity: 0.5;
+  transition: left 0.8s ease;
+}
+
 .banner {
   display: flex;
   height: 100%;
-
   overflow: hidden;
   transition: 0.5s;
   --banner-height: 49.5vh;
@@ -64,6 +83,7 @@ $breakpointsPosition: (
   top: 31vh;
   left: 19.3vw;
   height: var(--banner-height);
+  @include glassEffect;
 
   width: 61.5vw;
   border-right: 3px solid #ffffff;

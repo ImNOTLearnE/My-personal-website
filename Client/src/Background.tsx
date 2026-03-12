@@ -2,8 +2,8 @@ import "./Background.css";
 
 const test = () => {
   const testArr = [];
-  for (let i = 0; i < 200; i++) {
-    testArr.push(Math.floor(Math.random() * i) + 10);
+  for (let i = 0; i < 50; i++) {
+    testArr.push(Math.floor(Math.random() * i) + 1);
   }
   return testArr;
 };

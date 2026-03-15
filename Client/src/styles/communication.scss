@@ -1,0 +1,93 @@
+@mixin glassEffect {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+@mixin glassEffectBefore {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  opacity: 0.5;
+  transition: left 0.8s ease;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+
+  .glass-box {
+    @include glassEffect;
+    width: 40vw;
+    height: 70vh;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -15%;
+      width: 20%;
+      height: 100%;
+      @include glassEffectBefore;
+    }
+
+    &:hover::before {
+      left: 80%;
+    }
+
+    .content {
+      //   background-color: rgb(9, 0, 128);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      margin-left: 10vw;
+      margin-top: 5vh;
+
+      .input-text {
+        @include glassEffect;
+
+        border-radius: 25px;
+        &:hover {
+          border-color: rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.15);
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+      }
+
+      .button-text {
+        @include glassEffect;
+        background: rgba(255, 255, 255, 0.525);
+        height: 5vh;
+        width: 29.5vw;
+        color: #000000;
+        border-radius: 25px;
+        &:hover {
+          border-color: rgb(255, 254, 254);
+          background: rgba(255, 254, 254, 0.848);
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.616);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

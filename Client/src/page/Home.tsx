@@ -2,6 +2,7 @@
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Skills from "../components/Skills";
+import Communication from "../components/Communication";
 
 const Home = () => {
   return (
@@ -14,6 +15,9 @@ const Home = () => {
       </div>
       <div>
         <Skills />
+      </div>
+      <div>
+        <Communication />
       </div>
     </>
   );

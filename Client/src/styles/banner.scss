@@ -1,31 +1,24 @@
 $breakpoints: (
-  1103px: 60vh,
-  968px: 65vh,
-  949px: 70vh,
-  913px: 75vh,
-  899px: 60vh,
-  817px: 60vh,
-  767px: 70vh,
-  682px: 70vh,
-  565px: 80vh,
+  1103px: 52vh,
+  899px: 45vh,
+  767px: 45vh,
+  682px: 50vh,
+  565px: 55vh,
+  494px: 61vh,
+  455px: 67vh,
+  418px: 70vh,
+  382px: 80vh,
+  352px: 85vh,
 );
 $breakpointsWidth: (
   1103px: 60vw,
-  968px: 65vw,
-  949px: 70vw,
-  913px: 75vw,
-  899px: 92vw,
-  817px: 92vw,
-  767px: 90vw,
-  682px: 90vw,
-  565px: 90vw,
+  949px: 50vh,
+  899px: 95vw,
+  682px: 95vw,
+  565px: 93vw,
 );
 $breakpointsPosition: (
-  899px: 5vw,
-  817px: 5vw,
-  767px: 5vw,
-  682px: 5vw,
-  565px: 5vw,
+  899px: 1.5vw,
 );
 
 @mixin glassEffect {
@@ -50,6 +43,8 @@ $breakpointsPosition: (
 
 .banner {
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   overflow: hidden;
   transition: 0.5s;

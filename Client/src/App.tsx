@@ -14,6 +14,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Background />
 
+
         <Home />
       </ThemeProvider>
     </>

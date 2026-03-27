@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { createTheme, ThemeProvider } from "@mui/material";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["HOME", "SKILLS", "PORJECTS", "COMMUNICATION"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const theme = createTheme({

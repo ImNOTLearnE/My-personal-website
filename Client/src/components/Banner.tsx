@@ -14,7 +14,7 @@ const Banner = () => {
         <Container
           maxWidth="lg"
           sx={{
-            width: { xs: "100%", md: "60%" },
+            width: { xs: "100%", md: "100%" },
             height: { xs: "auto", md: "auto" },
             marginTop: "25vh ",
           }}
@@ -24,10 +24,10 @@ const Banner = () => {
             {/* ABOUT ME PARAGRAPH */}
             <Box
               sx={{
-                marginRight: { xs: "none", md: "10vw" },
-                marginLeft: "3vw",
+                // marginRight: { xs: "none", md: "10vw" },
+                // marginLeft: "3vw",
                 marginTop: { xs: "5vh", md: "1vh" },
-                width: { xs: "none", md: "25vw" },
+                width: { xs: "none", md: "50vw" },
                 textAlign: "center",
               }}
             >
@@ -38,10 +38,10 @@ const Banner = () => {
                 }}
                 variant="h2"
               >
-                Full Stack Dev
+                WHO AM I ?
               </Typography>
 
-              <Typography fontSize={"1rem"}>
+              <Typography fontSize={"1.4rem"}>
                 My name is Ahmad, and I’m a full‑stack developer passionate
                 about crafting digital products that are both powerful and
                 intuitive. I specialize in React on the front end and
@@ -55,7 +55,7 @@ const Banner = () => {
             {/* ABOUT ME PARAGRAPH */}
 
             {/* SHOWS THE PORJECTS */}
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -84,7 +84,7 @@ const Banner = () => {
                 }}
                 src="https://pixlr.com/images/generator/photo-generator.webp"
               />
-            </Box>
+            </Box> */}
             {/* SHOWS THE PORJECTS */}
           </Box>
 

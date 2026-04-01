@@ -1,0 +1,977 @@
+// ── Design Tokens ──────────────────────────────────────────
+$bg-primary: #07090f00;
+$bg-card: rgba(255, 255, 255, 0.04);
+$border-subtle: rgba(255, 255, 255, 0.08);
+$border-hover: rgba(255, 255, 255, 0.18);
+$border-active: rgba(74, 139, 255, 0.22);
+$text-1: #f0f4ff;
+$text-2: #7c8499;
+$text-3: #404459;
+$accent-a: #02ff45c0; // green
+$accent-b: #858585; // green dark
+$accent-c: #4ade80; // green light
+$tag-bg: rgba(16, 185, 129, 0.08);
+$tag-border: rgba(16, 185, 129, 0.2);
+$tag-text: #a7f3d0;
+
+$ease-card: cubic-bezier(0.2, 0.9, 0.2, 1);
+$dur-card: 0.42s;
+$dur-fast: 0.2s;
+
+// ── Mixins ─────────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+@mixin glass {
+  background: $bg-card;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+@mixin gradient-accent {
+  background: linear-gradient(135deg, $accent-a, $accent-b);
+}
+
+// ── Background Keyframes ────────────────────────────────────
+
+// نجوم وامضة
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+// جسيمات عائمة تصعد
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-420px) translateX(40px) scale(0.4);
+    opacity: 0;
+  }
+}
+
+// موجة أورورا تتمايل
+@keyframes aurora-shift {
+  0% {
+    transform: translateX(-50%) scaleX(1) scaleY(1) rotate(0deg);
+    opacity: 0.55;
+  }
+  33% {
+    transform: translateX(-48%) scaleX(1.1) scaleY(1.2) rotate(1deg);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translateX(-52%) scaleX(0.9) scaleY(0.8) rotate(-1deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-50%) scaleX(1) scaleY(1) rotate(0deg);
+    opacity: 0.55;
+  }
+}
+
+// أورورا ثانية معاكسة
+@keyframes aurora-shift-2 {
+  0% {
+    transform: translateX(-50%) scaleX(1) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(-54%) scaleX(1.15) rotate(-2deg);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(-50%) scaleX(1) rotate(0deg);
+    opacity: 0.3;
+  }
+}
+
+// شبكة تتنفس
+@keyframes grid-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+// خط مسح scanline
+@keyframes scanline-move {
+  0% {
+    top: -4%;
+  }
+  100% {
+    top: 104%;
+  }
+}
+
+// نبضة الـ glow المركزي
+@keyframes center-pulse {
+  0%,
+  100% {
+    opacity: 0.06;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.14;
+    transform: translateX(-50%) scale(1.15);
+  }
+}
+
+// تحرك نجمة شهاب
+@keyframes meteor {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-35deg);
+    opacity: 1;
+    width: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  30% {
+    width: 180px;
+  }
+  100% {
+    transform: translateX(-800px) translateY(400px) rotate(-35deg);
+    opacity: 0;
+    width: 0;
+  }
+}
+
+// ── Stars mixin ─────────────────────────────────────────────
+// نولّد النجوم بـ box-shadow بدل عناصر متعددة
+@function stars($n, $max-x, $max-y) {
+  $result: ();
+  @for $i from 1 through $n {
+    $x: random($max-x) * 1px;
+    $y: random($max-y) * 1px;
+    $result: append($result, #{$x} #{$y} 0 0 rgba(255, 255, 255, 0.7), comma);
+  }
+  @return $result;
+}
+
+// ── Section ────────────────────────────────────────────────
+.projects-section {
+  min-height: 580px;
+  background: $bg-primary;
+  padding: 2.4rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+  font-family: "DM Sans", system-ui, sans-serif;
+
+  // ── طبقة 1: شبكة متنفسة ───────────────────────────────
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   inset: 0;
+  //   background-image:
+  //     linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+  //     linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  //   background-size: 52px 52px;
+  //   pointer-events: none;
+  //   z-index: 0;
+  //   animation: grid-breathe 6s ease-in-out infinite;
+  // }
+
+  // ── طبقة 2: أورورا رئيسية ─────────────────────────────
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: -100px;
+  //   left: 50%;
+  //   width: 900px;
+  //   height: 420px;
+  //   background:
+  //     radial-gradient(
+  //       ellipse 60% 50% at 35% 50%,
+  //       rgba($accent-a, 0.18) 0%,
+  //       transparent 70%
+  //     ),
+  //     radial-gradient(
+  //       ellipse 50% 60% at 70% 50%,
+  //       rgba($accent-b, 0.15) 0%,
+  //       transparent 65%
+  //     ),
+  //     radial-gradient(
+  //       ellipse 40% 40% at 50% 80%,
+  //       rgba($accent-c, 0.08) 0%,
+  //       transparent 60%
+  //     );
+  //   filter: blur(28px);
+  //   pointer-events: none;
+  //   z-index: 0;
+  //   animation: aurora-shift 12s ease-in-out infinite;
+  // }
+}
+
+// ── طبقة 3: أورورا ثانية أسفل ────────────────────────────
+// .projects-section .bg-aurora-2 {
+//   position: absolute;
+//   bottom: -80px;
+//   left: 50%;
+//   width: 700px;
+//   height: 300px;
+//   background:
+//     radial-gradient(
+//       ellipse 55% 50% at 60% 40%,
+//       rgba($accent-b, 0.12) 0%,
+//       transparent 65%
+//     ),
+//     radial-gradient(
+//       ellipse 45% 55% at 30% 60%,
+//       rgba($accent-a, 0.09) 0%,
+//       transparent 60%
+//     );
+//   filter: blur(32px);
+//   pointer-events: none;
+//   z-index: 0;
+//   animation: aurora-shift-2 16s ease-in-out infinite;
+// }
+
+// ── طبقة 4: نجوم صغيرة ثابتة ────────────────────────────
+// .projects-section .bg-stars {
+//   position: absolute;
+//   inset: 0;
+//   pointer-events: none;
+//   z-index: 0;
+
+//   // طبقة نجوم صغيرة بطيئة
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     inset: 0;
+//     background-image:
+//       radial-gradient(
+//         1px 1px at 8% 12%,
+//         rgba(255, 255, 255, 0.7) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 22% 5%,
+//         rgba(255, 255, 255, 0.5) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 38% 18%,
+//         rgba(255, 255, 255, 0.8) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 55% 8%,
+//         rgba(255, 255, 255, 0.4) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 71% 22%,
+//         rgba(255, 255, 255, 0.6) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 88% 10%,
+//         rgba(255, 255, 255, 0.7) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 14% 35%,
+//         rgba(255, 255, 255, 0.5) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 30% 48%,
+//         rgba(255, 255, 255, 0.3) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 62% 38%,
+//         rgba(255, 255, 255, 0.6) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 79% 55%,
+//         rgba(255, 255, 255, 0.4) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 93% 42%,
+//         rgba(255, 255, 255, 0.5) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 5% 68%,
+//         rgba(255, 255, 255, 0.3) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 44% 72%,
+//         rgba(255, 255, 255, 0.6) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 67% 80%,
+//         rgba(255, 255, 255, 0.4) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 85% 75%,
+//         rgba(255, 255, 255, 0.5) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1.5px 1.5px at 18% 88%,
+//         rgba(255, 255, 255, 0.7) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1.5px 1.5px at 52% 92%,
+//         rgba(255, 255, 255, 0.5) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1.5px 1.5px at 76% 90%,
+//         rgba(255, 255, 255, 0.6) 0%,
+//         transparent 100%
+//       );
+//     animation: star-twinkle 4s ease-in-out infinite;
+//   }
+
+//   // طبقة نجوم متوسطة بتوقيت مختلف
+//   &::after {
+//     content: "";
+//     position: absolute;
+//     inset: 0;
+//     background-image:
+//       radial-gradient(
+//         1.5px 1.5px at 12% 28%,
+//         rgba(255, 255, 255, 0.9) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 35% 15%,
+//         rgba($accent-a, 0.8) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1.5px 1.5px at 58% 32%,
+//         rgba(255, 255, 255, 0.7) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 82% 28%,
+//         rgba($accent-b, 0.7) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         2px 2px at 25% 60%,
+//         rgba(255, 255, 255, 0.8) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 48% 55%,
+//         rgba($accent-c, 0.7) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1.5px 1.5px at 72% 65%,
+//         rgba(255, 255, 255, 0.6) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         2px 2px at 90% 58%,
+//         rgba(255, 255, 255, 0.9) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 6% 82%,
+//         rgba($accent-a, 0.6) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1.5px 1.5px at 38% 85%,
+//         rgba(255, 255, 255, 0.8) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         1px 1px at 61% 78%,
+//         rgba($accent-b, 0.5) 0%,
+//         transparent 100%
+//       ),
+//       radial-gradient(
+//         2px 2px at 95% 88%,
+//         rgba(255, 255, 255, 0.7) 0%,
+//         transparent 100%
+//       );
+//     animation: star-twinkle 6.5s ease-in-out infinite 2s;
+//   }
+// }
+
+// ── طبقة 5: جسيمات عائمة ─────────────────────────────────
+// .projects-section .bg-particles {
+//   position: absolute;
+//   inset: 0;
+//   pointer-events: none;
+//   z-index: 0;
+
+//   span {
+//     position: absolute;
+//     bottom: 0;
+//     width: 3px;
+//     height: 3px;
+//     border-radius: 50%;
+//     animation: particle-float linear infinite;
+
+//     &:nth-child(1) {
+//       left: 8%;
+//       width: 2px;
+//       height: 2px;
+//       background: rgba($accent-a, 0.6);
+//       animation-duration: 9s;
+//       animation-delay: 0s;
+//     }
+//     &:nth-child(2) {
+//       left: 18%;
+//       width: 3px;
+//       height: 3px;
+//       background: rgba($accent-b, 0.5);
+//       animation-duration: 12s;
+//       animation-delay: 1.5s;
+//     }
+//     &:nth-child(3) {
+//       left: 27%;
+//       width: 2px;
+//       height: 2px;
+//       background: rgba($accent-c, 0.6);
+//       animation-duration: 8s;
+//       animation-delay: 3s;
+//     }
+//     &:nth-child(4) {
+//       left: 38%;
+//       width: 4px;
+//       height: 4px;
+//       background: rgba($accent-a, 0.3);
+//       animation-duration: 14s;
+//       animation-delay: 0.8s;
+//     }
+//     &:nth-child(5) {
+//       left: 49%;
+//       width: 2px;
+//       height: 2px;
+//       background: rgba(255, 255, 255, 0.4);
+//       animation-duration: 10s;
+//       animation-delay: 2.2s;
+//     }
+//     &:nth-child(6) {
+//       left: 58%;
+//       width: 3px;
+//       height: 3px;
+//       background: rgba($accent-b, 0.5);
+//       animation-duration: 11s;
+//       animation-delay: 4s;
+//     }
+//     &:nth-child(7) {
+//       left: 67%;
+//       width: 2px;
+//       height: 2px;
+//       background: rgba($accent-a, 0.6);
+//       animation-duration: 7s;
+//       animation-delay: 1s;
+//     }
+//     &:nth-child(8) {
+//       left: 76%;
+//       width: 4px;
+//       height: 4px;
+//       background: rgba($accent-c, 0.4);
+//       animation-duration: 13s;
+//       animation-delay: 3.5s;
+//     }
+//     &:nth-child(9) {
+//       left: 85%;
+//       width: 2px;
+//       height: 2px;
+//       background: rgba($accent-a, 0.5);
+//       animation-duration: 9s;
+//       animation-delay: 0.5s;
+//     }
+//     &:nth-child(10) {
+//       left: 93%;
+//       width: 3px;
+//       height: 3px;
+//       background: rgba(255, 255, 255, 0.3);
+//       animation-duration: 11s;
+//       animation-delay: 2s;
+//     }
+//     &:nth-child(11) {
+//       left: 3%;
+//       width: 2px;
+//       height: 2px;
+//       background: rgba($accent-b, 0.4);
+//       animation-duration: 15s;
+//       animation-delay: 6s;
+//     }
+//     &:nth-child(12) {
+//       left: 43%;
+//       width: 3px;
+//       height: 3px;
+//       background: rgba($accent-a, 0.5);
+//       animation-duration: 8s;
+//       animation-delay: 4.5s;
+//     }
+//   }
+// }
+
+// ── طبقة 6: خط مسح scanline ──────────────────────────────
+// .projects-section .bg-scanline {
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   height: 4%;
+//   background: linear-gradient(
+//     to bottom,
+//     transparent 0%,
+//     rgba(255, 255, 255, 0.015) 50%,
+//     transparent 100%
+//   );
+//   pointer-events: none;
+//   z-index: 0;
+//   animation: scanline-move 10s linear infinite;
+// }
+
+// ── طبقة 7: نيازك ─────────────────────────────────────────
+// .projects-section .bg-meteor {
+//   position: absolute;
+//   top: 15%;
+//   right: -10%;
+//   height: 1px;
+//   background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+//   border-radius: 1px;
+//   pointer-events: none;
+//   z-index: 0;
+//   opacity: 0;
+//   animation: meteor 8s ease-in infinite;
+
+//   &:nth-child(2) {
+//     top: 35%;
+//     animation-delay: 3s;
+//     animation-duration: 10s;
+//   }
+//   &:nth-child(3) {
+//     top: 55%;
+//     animation-delay: 6.5s;
+//     animation-duration: 7s;
+//   }
+// }
+
+// ── طبقة 8: نبضة مركزية ──────────────────────────────────
+// .projects-section .bg-center-glow {
+//   position: absolute;
+//   top: 20%;
+//   left: 50%;
+//   width: 500px;
+//   height: 500px;
+//   border-radius: 50%;
+//   background: radial-gradient(
+//     circle,
+//     rgba($accent-a, 0.08) 0%,
+//     transparent 70%
+//   );
+//   pointer-events: none;
+//   z-index: 0;
+//   animation: center-pulse 8s ease-in-out infinite;
+//   transform: translateX(-50%);
+// }
+
+// ── Header ─────────────────────────────────────────────────
+.projects-header {
+  @include flex-center;
+  justify-content: space-between;
+  padding: 0 2.4rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.projects-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1 !important;
+  background: linear-gradient(135deg, $text-1 40%, rgba($text-1, 0.55));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.projects-count {
+  font-family: "DM Mono", monospace !important;
+  font-size: 0.78rem !important;
+  color: $text-3 !important;
+  letter-spacing: 0.06em !important;
+}
+
+// ── Scroller ───────────────────────────────────────────────
+.scroller-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.projects-scroller {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  // gap: 24px;
+  gap: 204px;
+  padding: 28px 13vw;
+  cursor: grab;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+    user-select: none;
+  }
+}
+
+// ── Card ───────────────────────────────────────────────────
+.project-card {
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid $border-subtle !important;
+  overflow: hidden !important;
+  cursor: pointer;
+  transition:
+    transform $dur-card $ease-card,
+    opacity $dur-card ease,
+    width $dur-card $ease-card,
+    box-shadow $dur-card ease,
+    border-color $dur-card ease !important;
+
+  &--active {
+    width: 480px;
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    z-index: 30;
+    border-color: $border-active !important;
+    box-shadow:
+      0 0 0 1px rgba($accent-a, 0.1),
+      0 24px 60px rgba(0, 0, 0, 0.65),
+      0 8px 24px rgba($accent-a, 0.1) !important;
+  }
+
+  &--side {
+    width: 300px;
+    transform: scale(0.88) translateY(5px);
+    opacity: 0.38;
+    z-index: 20;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  &--far {
+    width: 280px;
+    transform: scale(0.78) translateY(10px);
+    opacity: 0.16;
+    z-index: 10;
+    box-shadow: none !important;
+  }
+}
+
+// ── Card Media ─────────────────────────────────────────────
+.card-media {
+  position: relative;
+  overflow: hidden;
+
+  .project-card--active & {
+    height: 210px;
+  }
+  .project-card--side & {
+    height: 160px;
+  }
+  .project-card--far & {
+    height: 140px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .project-card--active:hover & img {
+    transform: scale(1.05);
+  }
+}
+
+.card-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 10, 16, 0.88) 0%,
+    rgba(8, 10, 16, 0.08) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: "DM Mono", monospace !important;
+  font-size: 0.66rem !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 2px 7px !important;
+  letter-spacing: 0.04em !important;
+}
+
+// ── Card Body ──────────────────────────────────────────────
+.card-body {
+  padding: 1rem 1.2rem 1.2rem !important;
+}
+
+.card-title {
+  font-family: "Syne", "DM Sans", sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: $text-1 !important;
+  margin-bottom: 0.3rem !important;
+  letter-spacing: -0.01em !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-desc {
+  font-size: 0.8rem !important;
+  color: $text-2 !important;
+  margin-bottom: 0.85rem !important;
+  line-height: 1.55 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ── Tags ───────────────────────────────────────────────────
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 0.9rem;
+}
+
+.tech-tag {
+  font-family: "DM Mono", monospace !important;
+  font-size: 0.68rem !important;
+  color: $tag-text !important;
+  background: $tag-bg !important;
+  border: 1px solid $tag-border !important;
+  border-radius: 5px !important;
+  padding: 0 7px !important;
+  height: 22px !important;
+  letter-spacing: 0.02em !important;
+
+  .MuiChip-label {
+    padding: 0 !important;
+  }
+}
+
+// ── Card Actions ───────────────────────────────────────────
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-demo {
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  @include gradient-accent;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba($accent-a, 0.28) !important;
+  transition:
+    opacity $dur-fast ease,
+    transform 0.15s ease !important;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba($accent-a, 0.38) !important;
+  }
+
+  // override MUI contained override
+  &.MuiButton-contained {
+    background: linear-gradient(135deg, $accent-a, $accent-b) !important;
+  }
+}
+
+.btn-github {
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  padding: 4px 11px !important;
+  border-radius: 8px !important;
+  border-color: $border-subtle !important;
+  color: $text-2 !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  transition:
+    background $dur-fast ease,
+    color $dur-fast ease,
+    border-color $dur-fast ease !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: $text-1 !important;
+    border-color: $border-hover !important;
+  }
+}
+
+// ── Arrow Buttons ──────────────────────────────────────────
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+
+  &--right {
+    right: 1rem;
+  }
+  &--left {
+    left: 1rem;
+  }
+}
+
+.arrow-btn {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid $border-subtle !important;
+  color: $text-2 !important;
+  transition:
+    background $dur-fast ease,
+    color $dur-fast ease,
+    transform 0.15s ease !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.09) !important;
+    color: $text-1 !important;
+  }
+  &:active {
+    transform: scale(0.9) !important;
+  }
+}
+
+.play-btn {
+  font-family: "DM Mono", monospace !important;
+  font-size: 0.7rem !important;
+  text-transform: none !important;
+  letter-spacing: 0.04em !important;
+  padding: 4px 11px !important;
+  border-radius: 7px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: $text-3 !important;
+  transition:
+    color $dur-fast ease,
+    background $dur-fast ease !important;
+
+  &:hover {
+    color: $text-2 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+}
+
+// ── Progress Bar ───────────────────────────────────────────
+.progress-bar-wrap {
+  padding: 1rem 2.4rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-bar {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  @include gradient-accent;
+  transition: width 0.35s ease;
+}
+
+// ── Dot Indicators ─────────────────────────────────────────
+.dot-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgba($accent-a, 0.5);
+  }
+
+  &--active {
+    width: 18px;
+    border-radius: 3px;
+    @include gradient-accent;
+  }
+}

@@ -30,6 +30,7 @@ $breakpointsPosition: (
   backdrop-filter: blur(2px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 @mixin glassEffectBefore {
   background: linear-gradient(
     90deg,

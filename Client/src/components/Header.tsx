@@ -61,7 +61,7 @@ const Header = () => {
         <AppBar sx={{ backgroundColor: "#80808000" }} position="relative">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+              {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
               <Typography
                 variant="h6"
                 noWrap
@@ -77,7 +77,7 @@ const Header = () => {
                   textDecoration: "none",
                 }}
               >
-                LOGO
+                {/*  */}
               </Typography>
               {/*  */}
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -222,7 +222,7 @@ const Header = () => {
                           left: 0,
                           height: "100%",
                           width: "100%",
-                          background: "#FFFFFF",
+                          background: "#02ff45",
                           borderRadius: "10px",
                           transition: "0.5s",
                           transformOrigin: "right",
